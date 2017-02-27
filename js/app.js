@@ -93,7 +93,7 @@ window.onload = function () {
             var res = JSON.parse(response);
             var data = res.data;
             var password = data.map(function (i) {
-                return i.id === parseInt(idValue) ? i.pwd : null;
+                return i.id === idValue ? i.pwd : null;
             })[0];
             handlePwd(password);
         }, handleError);
