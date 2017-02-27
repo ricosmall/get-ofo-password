@@ -1,8 +1,7 @@
 
 .container-fluid {
-    margin: 1rem;
-    padding: 1rem;
     background-color: #eee;
+    border-radius: 1rem;
 }
 
 label {
