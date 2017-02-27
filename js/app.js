@@ -118,6 +118,6 @@ window.onload = function () {
 
     search.addEventListener('click', searchData);
 
-    document.addEventListener('keydown', handleEnter);
+    id.addEventListener('keydown', handleEnter);
 
 };
