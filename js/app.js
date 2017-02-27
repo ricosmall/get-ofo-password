@@ -105,20 +105,19 @@ window.onload = function () {
             handlePwd(password);
         }, handleError);
 
-    }
+    };
 
     var handleEnter = function (ev) {
-        ev.preventDefault();
-        print(ev.keyCode);
+        // ev.preventDefault();
         if (ev.keyCode === 13) {
             searchData();
         }
-    }
+    };
 
     id.addEventListener('focus', hideError);
 
     search.addEventListener('click', searchData);
 
-    document.addEventListener('keyup', handleEnter);
+    document.addEventListener('keydown', handleEnter);
 
 };
