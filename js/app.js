@@ -107,8 +107,16 @@ window.onload = function () {
 
     }
 
+    var handleEnter = function (ev) {
+        if (ev.keyCode === 13) {
+            searchData();
+        }
+    }
+
     id.addEventListener('focus', hideError);
 
     search.addEventListener('click', searchData);
+
+    document.addEventListener('keyup', handleEnter);
 
 };
