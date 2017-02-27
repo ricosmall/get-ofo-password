@@ -108,6 +108,7 @@ window.onload = function () {
     }
 
     var handleEnter = function (ev) {
+        print('enter');
         if (ev.keyCode === 13) {
             searchData();
         }
