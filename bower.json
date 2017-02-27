@@ -1,0 +1,21 @@
+{
+  "name": "getPasswordOfO",
+  "authors": [
+    "ricosmall <805163443@qq.com>"
+  ],
+  "description": "small tool",
+  "main": "index.html",
+  "keywords": [
+    "search"
+  ],
+  "license": "MIT",
+  "homepage": "index.html",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

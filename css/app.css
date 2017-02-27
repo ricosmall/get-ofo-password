@@ -1,0 +1,26 @@
+
+.container-fluid {
+    margin: 2%;
+    padding: 3%;
+    background-color: #eee;
+    border-radius: 5rem;
+}
+
+label {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+input {
+    margin-bottom: 1rem;
+}
+
+.pwd,
+button {
+    font-size: 5rem;
+    margin-top: 5rem;
+}
+
+#error {
+    display: none;
+}
