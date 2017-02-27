@@ -74,7 +74,7 @@ window.onload = function () {
     };
 
     var handlePwd = function (password) {
-        if (password === null) {
+        if (password === '') {
             pwdError();
             return;
         }
@@ -90,11 +90,18 @@ window.onload = function () {
         var idValue = id.value;
 
         getJSON('data/data.json', function (response) {
-            var res = JSON.parse(response);
-            var data = res.data;
-            var password = data.map(function (i) {
-                return i.id === idValue ? i.pwd : null;
-            })[0];
+            var res = JSON.parse(response),
+                data = res.data,
+                len = data.length,
+                password = '';
+
+            for (let i = 0; i < len; i++) {
+                if (data[i].id === idValue) {
+                    password = data[i].pwd;
+                    break;
+                }
+            }
+
             handlePwd(password);
         }, handleError);
 
