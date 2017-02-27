@@ -66,7 +66,7 @@ window.onload = function () {
 
     var pwdError = function () {
         pwd.classList.add('bg-danger');
-        pwd.innerHTML = '无此车的密码！';
+        pwd.innerHTML = '无此车密码';
     };
 
     var isIdValid = function () {
