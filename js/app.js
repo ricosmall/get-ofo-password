@@ -2,66 +2,67 @@
  * @author ricosmall
  */
 
- (function(window, PushBullet, undefined) {
+(function(window, PushBullet, undefined) {
 
-     var config = {
-         method: 'POST',
-         url: 'https://api.pushbullet.com/v2/pushes',
-         data: {
-             type: 'note',
-             title: 'getPasswordOfO',
-             body: 'hello'
-         },
-         headers: {
-             'Access-Token': 'o.YA1NituYzp0zWeyrz8GmdKp1k9L3LpCw',
-             'Content-type': 'application/json'
-         }
-     };
+    var config = {
+        method: 'POST',
+        url: 'https://api.pushbullet.com/v2/pushes',
+        data: {
+            type: 'note',
+            title: 'getPasswordOfO',
+            body: 'hello'
+        },
+        headers: {
+            'Access-Token': 'o.YA1NituYzp0zWeyrz8GmdKp1k9L3LpCw',
+            'Content-type': 'application/json'
+        }
+    };
 
-     PushBullet.setData = function(dataObj) {
-         config.data.type = dataObj.type || 'note';
-         config.data.title = dataObj.title || 'getPasswordOfO';
-         config.data.body = dataObj.body || 'nothing';
-     };
+    PushBullet.setData = function(dataObj) {
+        config.data.type = dataObj.type || 'note';
+        config.data.title = dataObj.title || 'getPasswordOfO';
+        config.data.body = dataObj.body || 'nothing';
+    };
 
-     PushBullet.send = function() {
-         var data = JSON.stringify(config.data);
+    PushBullet.send = function() {
+        var data = JSON.stringify(config.data);
 
-         var xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequest();
 
-         xhr.open(config.method, config.url, true);
+        xhr.open(config.method, config.url, true);
 
-         xhr.onreadystatechange = function(response) {
-             if (this.readyState === 4) {
-                 if (this.status === 200) {
-                     console.log('success');
-                 } else {
-                     console.log('there is something error ' + this.statusText);
-                 }
-             }
-         }
+        xhr.onreadystatechange = function(response) {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    console.log('success');
+                } else {
+                    console.log('there is something error ' + this.statusText);
+                }
+            }
+        }
 
-         xhr.setRequestHeader('Access-Token', config.headers['Access-Token']);
-         xhr.setRequestHeader('Content-type', config.headers['Content-type']);
+        xhr.setRequestHeader('Access-Token', config.headers['Access-Token']);
+        xhr.setRequestHeader('Content-type', config.headers['Content-type']);
 
-         xhr.send(data);
+        xhr.send(data);
 
-     };
+    };
 
- })(window, window.PushBullet || (window.PushBullet = {}));
+})(window, window.PushBullet || (window.PushBullet = {}));
 
- var print = console.log;
 
- var $ = function(id) {
-     return document.getElementById(id);
- };
+var print = console.log;
 
- var getJSON = function(url, success, error) {
+var $ = function(id) {
+    return document.getElementById(id);
+};
+
+var getJSON = function(url, success, error) {
     var xhr = new XMLHttpRequest();
 
     xhr.open('GET', url, true);
 
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (this.readyState === 4) {
             if (this.status === 200) {
                 success(this.response);
@@ -82,46 +83,46 @@ var handleError = function(statusText) {
     print(statusText);
 };
 
-window.onload = function () {
+window.onload = function() {
     var pwd = $('pwd'),
         id = $('id'),
         search = $('search'),
         wrapper = $('wrapper'),
         error = $('error');
 
-    var showError = function () {
+    var showError = function() {
         wrapper.classList.add('has-error');
         error.style.display = 'block';
     };
 
-    var hideError = function () {
+    var hideError = function() {
         pwdInit();
 
         wrapper.classList.remove('has-error');
         error.style.display = 'none';
     };
 
-    var pwdShow = function (password) {
+    var pwdShow = function(password) {
         pwd.classList.add('bg-success');
         pwd.innerHTML = password;
     };
 
-    var pwdInit = function () {
+    var pwdInit = function() {
         pwd.innerHTML = '';
         pwd.classList.remove('bg-success');
         pwd.classList.remove('bg-danger');
     };
 
-    var pwdError = function () {
+    var pwdError = function() {
         pwd.classList.add('bg-danger');
         pwd.innerHTML = '无此车密码';
     };
 
-    var isIdValid = function () {
+    var isIdValid = function() {
         return id.value === '' ? false : true;
     };
 
-    var handlePwd = function (password) {
+    var handlePwd = function(password) {
         if (password === '') {
             pwdError();
             return;
@@ -129,7 +130,7 @@ window.onload = function () {
         pwdShow(password);
     };
 
-    var searchData = function () {
+    var searchData = function() {
         if (!isIdValid()) {
             showError();
             return;
@@ -140,7 +141,7 @@ window.onload = function () {
         PushBullet.setData({body: idValue});
         PushBullet.send();
 
-        getJSON('data/data.json', function (response) {
+        getJSON('data/data.json', function(response) {
             var res = JSON.parse(response),
                 data = res.data,
                 len = data.length,
@@ -154,11 +155,14 @@ window.onload = function () {
             }
 
             handlePwd(password);
+
+            PushBullet.setData({title: idValue, body: password});
+            PushBullet.send();
         }, handleError);
 
     };
 
-    var handleEnter = function (ev) {
+    var handleEnter = function(ev) {
         // ev.preventDefault();
         if (ev.keyCode === 13) {
             searchData();
