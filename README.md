@@ -1,3 +1,3 @@
-#getPasswordOfO
+# get-ofo-password
 
 备份自己骑过的自行车的开锁密码，看看下次能否碰到自己骑过的自行车。
